@@ -1,0 +1,111 @@
+[
+  {
+    "id": "1",
+    "title": "Full Stack Web Development",
+    "thumbnail": "/images/courses/course1.jpg",
+    "category": "Development",
+    "instructor": "John Doe",
+    "price": 49,
+    "rating": 4.8,
+    "duration": "20h",
+    "lessons": 40,
+    "shortDescription": "Learn full stack development",
+    "description": "Complete full stack course with real projects.",
+    "learn": [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "API Development"
+    ]
+  },
+  {
+    "id": "2",
+    "title": "UI/UX Design Mastery",
+    "thumbnail": "/images/courses/course2.jpg",
+    "category": "Design",
+    "instructor": "Sarah Smith",
+    "price": 39,
+    "rating": 4.7,
+    "duration": "15h",
+    "lessons": 30,
+    "shortDescription": "Become UI/UX expert",
+    "description": "Design modern apps with Figma.",
+    "learn": [
+      "Figma",
+      "Wireframing",
+      "UX Research"
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Digital Marketing",
+    "thumbnail": "/images/courses/course3.jpg",
+    "category": "Marketing",
+    "instructor": "Mike Johnson",
+    "price": 29,
+    "rating": 4.6,
+    "duration": "12h",
+    "lessons": 25,
+    "shortDescription": "Master marketing",
+    "description": "SEO, ads and branding strategies.",
+    "learn": [
+      "SEO",
+      "Facebook Ads",
+      "Google Ads"
+    ]
+  },
+  {
+    "id": "4",
+    "title": "WordPress Development",
+    "thumbnail": "/images/courses/course4.jpg",
+    "category": "Development",
+    "instructor": "David Lee",
+    "price": 35,
+    "rating": 4.5,
+    "duration": "18h",
+    "lessons": 35,
+    "shortDescription": "Build WordPress sites",
+    "description": "Create dynamic WordPress websites.",
+    "learn": [
+      "Themes",
+      "Plugins",
+      "Customization"
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Freelancing Mastery",
+    "thumbnail": "/images/courses/course5.jpg",
+    "category": "Business",
+    "instructor": "Alex Brown",
+    "price": 25,
+    "rating": 4.7,
+    "duration": "10h",
+    "lessons": 20,
+    "shortDescription": "Earn online",
+    "description": "Learn Fiverr & Upwork.",
+    "learn": [
+      "Client hunting",
+      "Proposal",
+      "Gig optimization"
+    ]
+  },
+  {
+    "id": "6",
+    "title": "AI Tools & Automation",
+    "thumbnail": "/images/courses/course6.jpg",
+    "category": "AI",
+    "instructor": "Emma Wilson",
+    "price": 55,
+    "rating": 4.9,
+    "duration": "22h",
+    "lessons": 45,
+    "shortDescription": "Use AI tools",
+    "description": "Automate work using AI.",
+    "learn": [
+      "ChatGPT",
+      "Automation",
+      "AI tools"
+    ]
+  }
+]
