@@ -11,12 +11,7 @@
     "lessons": 40,
     "shortDescription": "Learn full stack development",
     "description": "Complete full stack course with real projects.",
-    "learn": [
-      "React",
-      "Node.js",
-      "MongoDB",
-      "API Development"
-    ]
+    "learn": ["React", "Node.js", "MongoDB"]
   },
   {
     "id": "2",
@@ -30,11 +25,7 @@
     "lessons": 30,
     "shortDescription": "Become UI/UX expert",
     "description": "Design modern apps with Figma.",
-    "learn": [
-      "Figma",
-      "Wireframing",
-      "UX Research"
-    ]
+    "learn": ["Figma", "Wireframe", "UX Research"]
   },
   {
     "id": "3",
@@ -46,13 +37,9 @@
     "rating": 4.6,
     "duration": "12h",
     "lessons": 25,
-    "shortDescription": "Master marketing",
-    "description": "SEO, ads and branding strategies.",
-    "learn": [
-      "SEO",
-      "Facebook Ads",
-      "Google Ads"
-    ]
+    "shortDescription": "Marketing mastery",
+    "description": "SEO, Ads & Branding.",
+    "learn": ["SEO", "Ads", "Branding"]
   },
   {
     "id": "4",
@@ -64,13 +51,9 @@
     "rating": 4.5,
     "duration": "18h",
     "lessons": 35,
-    "shortDescription": "Build WordPress sites",
-    "description": "Create dynamic WordPress websites.",
-    "learn": [
-      "Themes",
-      "Plugins",
-      "Customization"
-    ]
+    "shortDescription": "Build WP sites",
+    "description": "Themes, plugins, customization.",
+    "learn": ["Themes", "Plugins", "Customization"]
   },
   {
     "id": "5",
@@ -83,12 +66,8 @@
     "duration": "10h",
     "lessons": 20,
     "shortDescription": "Earn online",
-    "description": "Learn Fiverr & Upwork.",
-    "learn": [
-      "Client hunting",
-      "Proposal",
-      "Gig optimization"
-    ]
+    "description": "Fiverr & Upwork success.",
+    "learn": ["Clients", "Proposal", "Gig"]
   },
   {
     "id": "6",
@@ -101,11 +80,7 @@
     "duration": "22h",
     "lessons": 45,
     "shortDescription": "Use AI tools",
-    "description": "Automate work using AI.",
-    "learn": [
-      "ChatGPT",
-      "Automation",
-      "AI tools"
-    ]
+    "description": "Automation using AI.",
+    "learn": ["ChatGPT", "Automation"]
   }
 ]
