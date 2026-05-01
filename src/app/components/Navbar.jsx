@@ -3,21 +3,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaBars, FaTimes, FaGraduationCap } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
 
+  // Load user from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
-
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
   }, []);
 
-  const handleLogout = () => {
+  // Logout
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
     localStorage.removeItem("user");
     setUser(null);
     window.location.href = "/";
@@ -31,18 +33,15 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 backdrop-blur-xl">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white">
-            <FaGraduationCap className="text-xl" />
-          </div>
-
-          <span className="text-2xl font-bold text-white">
-            Skill<span className="text-blue-400">Sphere</span>
-          </span>
+        
+        {/* 🔥 TEXT LOGO (NO ICON) */}
+        <Link href="/" className="text-2xl font-bold tracking-wide text-white">
+          Skill<span className="text-blue-400">Sphere</span>
         </Link>
 
+        {/* Desktop Menu */}
         <div className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
             <Link
@@ -55,25 +54,26 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* Right Side */}
         <div className="hidden items-center gap-4 lg:flex">
           {user ? (
             <>
+              {/* Avatar */}
               <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
                 <Image
                   src={user.avatar || "/images/avatar.png"}
-                  alt={user.name || "User"}
+                  alt="user"
                   width={34}
                   height={34}
                   className="rounded-full"
                 />
-                <span className="text-sm font-medium text-white">
-                  {user.name}
-                </span>
+                <span className="text-sm text-white">{user.name}</span>
               </div>
 
+              {/* Logout */}
               <button
                 onClick={handleLogout}
-                className="rounded-full bg-red-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-600"
+                className="rounded-full bg-red-500 px-5 py-2 text-sm font-semibold text-white hover:bg-red-600"
               >
                 Logout
               </button>
@@ -82,14 +82,14 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="rounded-full border border-blue-400 px-5 py-2 text-sm font-semibold text-blue-300 transition hover:bg-blue-500 hover:text-white"
+                className="rounded-full border border-blue-400 px-5 py-2 text-sm font-semibold text-blue-300 hover:bg-blue-500 hover:text-white"
               >
                 Login
               </Link>
 
               <Link
                 href="/register"
-                className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700"
               >
                 Register
               </Link>
@@ -97,6 +97,7 @@ export default function Navbar() {
           )}
         </div>
 
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(!open)}
           className="text-2xl text-white lg:hidden"
@@ -105,6 +106,7 @@ export default function Navbar() {
         </button>
       </nav>
 
+      {/* Mobile Menu */}
       {open && (
         <div className="border-t border-white/10 bg-slate-950 px-6 py-6 lg:hidden">
           <div className="flex flex-col gap-5">
@@ -113,7 +115,7 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-slate-300 transition hover:text-blue-400"
+                className="text-slate-300 hover:text-blue-400"
               >
                 {link.name}
               </Link>
@@ -125,7 +127,7 @@ export default function Navbar() {
                   <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
                     <Image
                       src={user.avatar || "/images/avatar.png"}
-                      alt={user.name || "User"}
+                      alt="user"
                       width={36}
                       height={36}
                       className="rounded-full"
@@ -135,7 +137,7 @@ export default function Navbar() {
 
                   <button
                     onClick={handleLogout}
-                    className="rounded-full bg-red-500 px-5 py-3 font-semibold text-white"
+                    className="rounded-full bg-red-500 px-5 py-3 text-white"
                   >
                     Logout
                   </button>
@@ -144,16 +146,14 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/login"
-                    onClick={() => setOpen(false)}
-                    className="rounded-full border border-blue-400 px-5 py-3 text-center font-semibold text-blue-300"
+                    className="rounded-full border border-blue-400 px-5 py-3 text-center text-blue-300"
                   >
                     Login
                   </Link>
 
                   <Link
                     href="/register"
-                    onClick={() => setOpen(false)}
-                    className="rounded-full bg-blue-600 px-5 py-3 text-center font-semibold text-white"
+                    className="rounded-full bg-blue-600 px-5 py-3 text-center text-white"
                   >
                     Register
                   </Link>
