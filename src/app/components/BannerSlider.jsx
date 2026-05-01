@@ -2,9 +2,10 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import Image from "next/image";
+
 import "swiper/css";
 import "swiper/css/pagination";
-import Image from "next/image";
 
 const slides = [
   {
@@ -35,28 +36,29 @@ const slides = [
 
 export default function BannerSlider() {
   return (
-    <div className="h-[90vh] w-full">
+    <section className="h-[90vh] w-full">
       <Swiper
         modules={[Autoplay, Pagination]}
-        autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 3500, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        loop={true}
+        loop
         className="h-full"
       >
-        {slides.map((slide) => (
+        {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <div className="relative h-[90vh] w-full">
-              
               <Image
                 src={slide.image}
-                alt="banner"
+                alt={slide.title}
                 fill
+                priority={index === 0}
+                sizes="100vw"
                 className="object-cover"
               />
 
-              <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-center px-6">
+              <div className="absolute inset-0 flex items-center justify-center bg-black/60 px-6 text-center">
                 <div>
-                  <h1 className="text-4xl md:text-6xl font-bold text-white">
+                  <h1 className="text-4xl font-bold text-white md:text-6xl">
                     {slide.title}
                   </h1>
 
@@ -64,16 +66,15 @@ export default function BannerSlider() {
                     {slide.subtitle}
                   </p>
 
-                  <button className="mt-6 rounded-full bg-blue-600 px-8 py-3 text-white font-semibold hover:bg-blue-700">
+                  <button className="mt-6 rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700">
                     Start Learning
                   </button>
                 </div>
               </div>
-
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 }

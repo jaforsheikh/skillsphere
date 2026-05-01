@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaStar, FaClock, FaBookOpen } from "react-icons/fa";
+import { FaBookOpen, FaClock, FaStar } from "react-icons/fa";
 
 export default function CourseCard({ course }) {
   return (
@@ -10,8 +10,10 @@ export default function CourseCard({ course }) {
           src={course.thumbnail}
           alt={course.title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition duration-500 group-hover:scale-110"
         />
+
         <span className="absolute left-4 top-4 rounded-full bg-blue-600 px-4 py-1 text-sm font-semibold text-white">
           {course.category}
         </span>
@@ -20,13 +22,9 @@ export default function CourseCard({ course }) {
       <div className="p-6">
         <h3 className="text-xl font-bold text-white">{course.title}</h3>
 
-        <p className="mt-2 text-sm text-slate-400">
-          By {course.instructor}
-        </p>
+        <p className="mt-2 text-sm text-slate-400">By {course.instructor}</p>
 
-        <p className="mt-3 text-slate-300">
-          {course.shortDescription}
-        </p>
+        <p className="mt-3 text-slate-300">{course.shortDescription}</p>
 
         <div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-300">
           <span className="flex items-center gap-2">
