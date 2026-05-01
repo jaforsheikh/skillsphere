@@ -1,68 +1,78 @@
-import { connectDB } from "@/app/lib/mongodb";
-import User from "@/app/models/User";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
+"use client";
 
-export async function POST(request) {
-  try {
-    await connectDB();
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-    const { email, password } = await request.json();
+export default function LoginPage() {
+  const router = useRouter();
 
-    if (!email || !password) {
-      return Response.json(
-        { success: false, message: "Email and password are required" },
-        { status: 400 }
-      );
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Login successful");
+
+        // save user locally (for navbar)
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        router.push("/");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
     }
+  };
 
-    const user = await User.findOne({ email });
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-white">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md space-y-5 rounded-3xl border border-white/10 bg-white/5 p-8"
+      >
+        <h2 className="text-2xl font-bold text-center">Login</h2>
 
-    if (!user) {
-      return Response.json(
-        { success: false, message: "Invalid email or password" },
-        { status: 401 }
-      );
-    }
+        <input
+          type="email"
+          placeholder="Email"
+          required
+          className="w-full rounded-lg bg-slate-800 p-3 outline-none"
+          onChange={(e) =>
+            setForm({ ...form, email: e.target.value })
+          }
+        />
 
-    const isMatched = await bcrypt.compare(password, user.password);
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          className="w-full rounded-lg bg-slate-800 p-3 outline-none"
+          onChange={(e) =>
+            setForm({ ...form, password: e.target.value })
+          }
+        />
 
-    if (!isMatched) {
-      return Response.json(
-        { success: false, message: "Invalid email or password" },
-        { status: 401 }
-      );
-    }
-
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    cookies().set("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-
-    return Response.json({
-      success: true,
-      message: "Login successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        avatar: user.avatar,
-      },
-    });
-  } catch (error) {
-    return Response.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
-  }
+        <button className="w-full rounded-full bg-blue-600 py-3 font-semibold hover:bg-blue-700">
+          Login
+        </button>
+      </form>
+    </div>
+  );
 }

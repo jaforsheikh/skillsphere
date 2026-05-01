@@ -1,4 +1,6 @@
 import "./globals.css";
+import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "SkillSphere",
@@ -8,7 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        <Toaster position="top-right" />
+        {children}
+      </body>
     </html>
   );
 }
