@@ -1,10 +1,12 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-
-const client = new MongoClient(process.env.MONGODB_URI);
-const db = client.db();
-
+const mongodbUri = process.env.MONGODB_URI;
+if (!mongodbUri) {
+  throw new Error("MONGODB_URI is missing. Add it in Vercel Environment Variables.");
+}
+const client = new MongoClient(mongodbUri);
+const db = client.db("skillsphere");
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
@@ -20,6 +22,8 @@ export const auth = betterAuth({
   },
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL,
-
-  trustedOrigins: ["http://localhost:3000"],
+  trustedOrigins: [
+    "http://localhost:3000",
+    process.env.BETTER_AUTH_URL,
+  ].filter(Boolean),
 });
