@@ -5,7 +5,10 @@
     "image": "/images/instructors/ins1.jpg",
     "expertise": "Web Development",
     "courses": 10,
-    "rating": 4.8
+    "rating": 4.8,
+    "experience": "8+ Years",
+    "students": 4200,
+    "bio": "John teaches practical full stack development with React, Next.js, Node.js, and MongoDB."
   },
   {
     "id": "2",
@@ -13,14 +16,31 @@
     "image": "/images/instructors/ins2.jpg",
     "expertise": "UI/UX Design",
     "courses": 8,
-    "rating": 4.7
+    "rating": 4.7,
+    "experience": "6+ Years",
+    "students": 3100,
+    "bio": "Sarah helps students master modern UI/UX design, wireframing, prototyping, and user research."
   },
   {
     "id": "3",
     "name": "Mike Johnson",
     "image": "/images/instructors/ins3.jpg",
-    "expertise": "Marketing",
+    "expertise": "Digital Marketing",
     "courses": 6,
-    "rating": 4.6
+    "rating": 4.6,
+    "experience": "7+ Years",
+    "students": 2800,
+    "bio": "Mike teaches SEO, ads, analytics, branding, and practical digital marketing systems."
+  },
+  {
+    "id": "4",
+    "name": "Emma Wilson",
+    "image": "/images/instructors/ins4.jpg",
+    "expertise": "AI Tools & Automation",
+    "courses": 7,
+    "rating": 4.9,
+    "experience": "5+ Years",
+    "students": 3900,
+    "bio": "Emma teaches how to use AI tools, automation workflows, and productivity systems."
   }
 ]
