@@ -1,29 +1,65 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-const mongodbUri = process.env.MONGODB_URI;
-if (!mongodbUri) {
-  throw new Error("MONGODB_URI is missing. Add it in Vercel Environment Variables.");
+
+function getBaseURL() {
+  const url =
+    process.env.BETTER_AUTH_URL ||
+    process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
+    process.env.VERCEL_URL ||
+    "http://localhost:3000";
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  return `https://${url}`;
 }
-const client = new MongoClient(mongodbUri);
+
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  "mongodb://127.0.0.1:27017/skillsphere";
+
+const BETTER_AUTH_SECRET =
+  process.env.BETTER_AUTH_SECRET ||
+  "skillsphere-build-safe-secret-123456789123456789";
+
+const BASE_URL = getBaseURL();
+
+const client = new MongoClient(MONGODB_URI);
 const db = client.db("skillsphere");
-export const auth = betterAuth({
-  database: mongodbAdapter(db, {
-    client,
-  }),
-  emailAndPassword: {
-    enabled: true,
-  },
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+
+const googleClientId = process.env.GOOGLE_CLIENT_ID || "";
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
+
+const socialProviders = {};
+
+if (googleClientId && googleClientSecret) {
+  socialProviders.google = {
+    clientId: googleClientId,
+    clientSecret: googleClientSecret,
+  };
+}
+
+export function createAuth() {
+  return betterAuth({
+    database: mongodbAdapter(db),
+
+    secret: BETTER_AUTH_SECRET,
+    baseURL: BASE_URL,
+
+    emailAndPassword: {
+      enabled: true,
     },
-  },
-  secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL,
-  trustedOrigins: [
-    "http://localhost:3000",
-    process.env.BETTER_AUTH_URL,
-  ].filter(Boolean),
-});
+
+    socialProviders,
+
+    trustedOrigins: [
+      "http://localhost:3000",
+      BASE_URL,
+      process.env.BETTER_AUTH_URL,
+      process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+      process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "",
+    ].filter(Boolean),
+  });
+}
