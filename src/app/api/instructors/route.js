@@ -1,5 +1,6 @@
+import { NextResponse } from "next/server";
 import instructors from "@/data/instructors.json";
 
 export async function GET() {
-  return Response.json(instructors);
+  return NextResponse.json(instructors);
 }

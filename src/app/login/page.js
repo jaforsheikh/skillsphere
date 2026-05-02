@@ -1,68 +1,110 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
+import { authClient } from "@/app/lib/auth-client";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: "", password: "" });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/profile";
+  const { data: session, isPending } = authClient.useSession();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  useEffect(() => {
+    if (!isPending && session?.user) {
+      router.push("/profile");
+    }
+  }, [isPending, session, router]);
+  const handleGoogleLogin = async () => {
+    const result = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: callbackUrl,
     });
-
-    const data = await res.json();
-
-    if (data.success) {
-      localStorage.setItem("user", JSON.stringify(data.user));
-      toast.success("Login successful");
-      router.push("/");
-      router.refresh();
-    } else {
-      toast.error(data.message);
+    if (result?.error) {
+      toast.error(result.error.message || "Google login failed");
     }
   };
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await authClient.signIn.email({
+      email: form.email,
+      password: form.password,
+    });
+    if (result?.error) {
+      toast.error(result.error.message || "Login failed");
+      return;
+    }
+    toast.success("Login successful");
+    router.push(callbackUrl);
+    router.refresh();
+  };
+  if (isPending) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-slate-950 text-white">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+          <p className="text-slate-300">Checking login status...</p>
+        </div>
+      </main>
+    );
+  }
+  if (session?.user) {
+    return null;
+  }
   return (
     <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6 pt-24 text-white">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl"
       >
-        <h1 className="text-center text-3xl font-bold">Welcome Back</h1>
+        <h1 className="text-center text-3xl font-bold">Login</h1>
         <p className="mt-2 text-center text-slate-400">
           Login to continue learning
         </p>
-
-        <div className="mt-8 space-y-4">
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="mt-8 flex w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white px-5 py-3 font-semibold text-slate-900 transition hover:bg-slate-100"
+        >
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-lg font-bold text-blue-600">
+            G
+          </span>
+          Continue with Google
+        </button>
+        <div className="my-6 flex items-center gap-4">
+          <div className="h-px flex-1 bg-white/10"></div>
+          <span className="text-sm text-slate-500">or login with email</span>
+          <div className="h-px flex-1 bg-white/10"></div>
+        </div>
+        <div className="space-y-4">
           <input
             type="email"
             placeholder="Email address"
             required
-            className="w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-blue-500"
+            value={form.email}
+            className="w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-blue-500"
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
-
           <input
             type="password"
             placeholder="Password"
             required
-            className="w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-blue-500"
+            value={form.password}
+            className="w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-blue-500"
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
-
-          <button className="w-full rounded-full bg-blue-600 py-3 font-semibold transition hover:bg-blue-700">
+          <button
+            type="submit"
+            className="w-full rounded-full bg-blue-600 py-3 font-semibold transition hover:bg-blue-700"
+          >
             Login
           </button>
         </div>
-
         <p className="mt-6 text-center text-sm text-slate-400">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="text-blue-400 hover:underline">

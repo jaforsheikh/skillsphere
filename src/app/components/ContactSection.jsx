@@ -7,15 +7,12 @@ export default function ContactSection() {
         <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">
           Contact Us
         </p>
-
         <h2 className="mt-3 text-3xl font-bold md:text-5xl">
           Ready to Start Learning?
         </h2>
-
         <p className="mx-auto mt-4 max-w-2xl text-slate-400">
           Join SkillSphere and start building career-ready skills today.
         </p>
-
         <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
           <a
             href="mailto:support@skillsphere.com"
@@ -23,7 +20,6 @@ export default function ContactSection() {
           >
             Contact Support
           </a>
-
           <Link
             href="/courses"
             className="rounded-full border border-blue-400 px-8 py-3 font-semibold text-blue-300 hover:bg-blue-500 hover:text-white"

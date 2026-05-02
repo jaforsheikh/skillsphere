@@ -3,10 +3,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import Image from "next/image";
-
 import "swiper/css";
 import "swiper/css/pagination";
-
 const slides = [
   {
     id: 1,
@@ -33,7 +31,6 @@ const slides = [
     subtitle: "Flexible online learning",
   },
 ];
-
 export default function BannerSlider() {
   return (
     <section className="h-[90vh] w-full">
@@ -55,17 +52,14 @@ export default function BannerSlider() {
                 sizes="100vw"
                 className="object-cover"
               />
-
               <div className="absolute inset-0 flex items-center justify-center bg-black/60 px-6 text-center">
                 <div>
                   <h1 className="text-4xl font-bold text-white md:text-6xl">
                     {slide.title}
                   </h1>
-
                   <p className="mt-4 text-lg text-gray-300">
                     {slide.subtitle}
                   </p>
-
                   <button className="mt-6 rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700">
                     Start Learning
                   </button>

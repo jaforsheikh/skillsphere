@@ -6,9 +6,10 @@
     "expertise": "Web Development",
     "courses": 10,
     "rating": 4.8,
-    "experience": "8+ Years",
-    "students": 4200,
-    "bio": "John teaches practical full stack development with React, Next.js, Node.js, and MongoDB."
+    "experience": "6+ Years Experience",
+    "students": "2200+ Students",
+    "email": "john.doe@skillsphere.com",
+    "bio": "John Doe is a professional web development mentor who teaches HTML, CSS, JavaScript, React, Next.js, backend APIs, and modern full-stack project building."
   },
   {
     "id": "2",
@@ -17,9 +18,10 @@
     "expertise": "UI/UX Design",
     "courses": 8,
     "rating": 4.7,
-    "experience": "6+ Years",
-    "students": 3100,
-    "bio": "Sarah helps students master modern UI/UX design, wireframing, prototyping, and user research."
+    "experience": "5+ Years Experience",
+    "students": "1800+ Students",
+    "email": "sarah.smith@skillsphere.com",
+    "bio": "Sarah Smith helps learners understand clean interface design, user experience, wireframing, prototyping, color theory, typography, and product design thinking."
   },
   {
     "id": "3",
@@ -28,9 +30,10 @@
     "expertise": "Digital Marketing",
     "courses": 6,
     "rating": 4.6,
-    "experience": "7+ Years",
-    "students": 2800,
-    "bio": "Mike teaches SEO, ads, analytics, branding, and practical digital marketing systems."
+    "experience": "7+ Years Experience",
+    "students": "1500+ Students",
+    "email": "mike.johnson@skillsphere.com",
+    "bio": "Mike Johnson teaches digital marketing, SEO, social media strategy, campaign planning, paid advertising, analytics, and online lead generation."
   },
   {
     "id": "4",
@@ -39,8 +42,9 @@
     "expertise": "AI Tools & Automation",
     "courses": 7,
     "rating": 4.9,
-    "experience": "5+ Years",
-    "students": 3900,
-    "bio": "Emma teaches how to use AI tools, automation workflows, and productivity systems."
+    "experience": "4+ Years Experience",
+    "students": "2000+ Students",
+    "email": "emma.wilson@skillsphere.com",
+    "bio": "Emma Wilson teaches practical AI tools, automation workflows, productivity systems, content automation, and business process optimization."
   }
 ]
