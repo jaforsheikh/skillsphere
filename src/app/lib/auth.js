@@ -27,9 +27,6 @@ export function createAuth() {
 
   const baseURL = getBaseURL();
 
-  const googleClientId = process.env.GOOGLE_CLIENT_ID;
-  const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
-
   const client = new MongoClient(mongoUri);
   const db = client.db("skillsphere");
 
@@ -45,8 +42,8 @@ export function createAuth() {
 
     socialProviders: {
       google: {
-        clientId: googleClientId || "missing-google-client-id",
-        clientSecret: googleClientSecret || "missing-google-client-secret",
+        clientId: process.env.GOOGLE_CLIENT_ID || "",
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
       },
     },
 
