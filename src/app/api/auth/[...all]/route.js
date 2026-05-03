@@ -1,12 +1,4 @@
-import { createAuth } from "@/app/lib/auth";
+import { auth } from "../../../../lib/auth";
+import { toNextJsHandler } from "better-auth/next-js";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
-async function handler(request) {
-  const auth = createAuth();
-  return auth.handler(request);
-}
-
-export { handler as GET, handler as POST };
+export const { GET, POST } = toNextJsHandler(auth);

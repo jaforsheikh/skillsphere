@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { authClient } from "@/app/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 export default function ProtectedRoute({ children }) {
   const router = useRouter();

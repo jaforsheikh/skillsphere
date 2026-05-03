@@ -15,7 +15,7 @@ import {
   FaUpload,
 } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { authClient } from "@/app/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 export default function ProfilePage() {
   const router = useRouter();
