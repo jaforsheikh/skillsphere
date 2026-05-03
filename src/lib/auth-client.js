@@ -1,9 +1,21 @@
-"use client";
+import { MongoClient } from "mongodb";
 
-import { createAuthClient } from "better-auth/react";
+const uri = process.env.MONGODB_URI;
 
-export const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
-});
+if (!uri) {
+  throw new Error("Missing MONGODB_URI environment variable");
+}
 
-export const { signIn, signUp, signOut, useSession } = authClient;
+let client;
+
+if (process.env.NODE_ENV === "development") {
+  if (!global._mongoClient) {
+    global._mongoClient = new MongoClient(uri);
+  }
+  client = global._mongoClient;
+} else {
+  client = new MongoClient(uri);
+}
+
+export const mongoClient = client;
+export const db = client.db("skillsphere");
